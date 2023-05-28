@@ -8,70 +8,79 @@
 </head>
 <body>
     
+    <h1>Rock, Paper, Scissors</h1>
+    <br>
+    <p>Make a selection:</p>
+
+    <input type="button" class="btn" id="rock" value="Rock">
+
+    <input type="button" class="btn" id="paper" value="Paper">
+
+    <input type="button" class="btn" id="scissors" value="Scissors">
+
+
+
+
     <script>
 
         const choices = ["rock", "paper", "scissors"];
 
+        //BUTTONS ASSIGNED TO VARIABLES
+        const rockBtn = document.getElementById('rock');
+        const paperBtn = document.getElementById('paper');
+        const scissorsBtn = document.getElementById('scissors');
+
+        //EVENT LISTENERS FOR BUTTONS
+        rockBtn.addEventListener('click', (e) => {
+            let playerChoice = e.target.id;
+            playRound(playerChoice);
+        });
+
+        paperBtn.addEventListener('click', (e) => {
+            let playerChoice = e.target.id;
+            playRound(playerChoice);
+        });
+
+        scissorsBtn.addEventListener('click', (e) => {
+            let playerChoice = e.target.id;
+            playRound(playerChoice);
+        });
+        
+        
+
+
+        //GENERATES RANDOM CHOICE FOR AI PLAYER
         function getComputerChoice() {
             let computerChoice = choices[Math.floor(Math.random() * choices.length)];
             //console.log(computerChoice);
             return computerChoice;
         }
 
-
-        function getPlayerChoice() {
-            let validAnswer = false;
-
-            while (validAnswer === false) {
-                const playerChoice = prompt("Choose rock, paper or scissors: ");
-
-                if (playerChoice === null) {
-                    continue;
-                }
-                const choiceLowerCase = playerChoice.toLowerCase();
-                
-                if (choices.includes(choiceLowerCase)) {
-                    validAnswer = true;
-                    return choiceLowerCase;
-                }
-            }
-        }
-
-
-        function checkWinner(playerSelection, computerSelection) {
-
-            console.log(`Player: ${playerSelection}`);
-            console.log(`Computer: ${computerSelection}`)
-
-            if (playerSelection === computerSelection) {
-                return "Tie";
-            }else if (playerSelection === "rock" && computerSelection === "scissors"
-                    || playerSelection === "paper" && computerSelection === "rock"
-                    || playerSelection === "scissors" && computerSelection === "paper") {
-                return "Win";
-                    } else {
-                return "Lose";
-                    }
-        } 
-
        
+        //PLAYS ONE ROUND
+        function playRound(playerChoice) {
 
-        function playRound(playerSelection, computerSelection) {
+            let result = "";
+            let computerChoice = getComputerChoice();
 
-            let result = checkWinner(playerSelection, computerSelection);
-
-            if (result === "Tie") {
-                console.log("It's a tie")
-            } else if (result === "Win") {
-                console.log(`${playerSelection} beats ${computerSelection}, you win!`)
+            if (playerChoice === computerChoice) {
+                result = "Tie";
+            } else if (playerChoice === "rock" && computerChoice === "scissors"
+                        || playerChoice === "scissors" && computerChoice === "paper"
+                        || playerChoice === "paper" && computerChoice === "rock") {
+                    result = "Win";
             } else {
-                console.log(`${computerSelection} beats ${playerSelection}, you lose!`)
+                result = "Lose";
             }
-
+            
+            console.log(`You chose ${playerChoice} and the computer chose ${computerChoice}: ${result}!`);
             return result;
         }
 
-        function playGame(playerSelection, computerSelection) {
+
+
+        //PLAYS FIVE ROUNDS
+        /* function playGame(playerSelection, computerSelection) {
 
             let playerScore = 0;
             let computerScore = 0;
@@ -98,7 +107,7 @@
                 alert(`You scored ${playerScore}, the computer scored ${computerScore}. You lose the game...`);
             }
         }
-
+ */
 
 
 
