@@ -5,11 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Helvetica, sans-serif;
+            color: rgb(50,50,50);
+            }
+
+        .container {
+            width: 400px;
+            background: #ccc;
+            margin: 70px auto 0 auto;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .commentary {
+            font-weight: bold;
+        }
+
+        input[type="button"] {
+            border: none;
+            color: white;
+            font-size: 18px;
+            margin: 20px 5px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            background: darkslategrey;
+        }
+
+        span {
+            font-style:italic;
+        }
+    </style>
 </head>
 <body>
     
+    <div class="container">
     <h1>Rock, Paper, Scissors</h1>
-    <br>
     <p>Make a selection:</p>
 
     <input type="button" class="btn" id="rock" value="Rock">
@@ -20,6 +60,7 @@
 
     <div id="results">
 
+    </div>
     </div>
 
 
@@ -35,6 +76,7 @@
         const resultContainer = document.getElementById('results');
 
         const commentary = document.createElement('p');
+        commentary.className = "commentary";
         
         resultContainer.appendChild(commentary);
 
