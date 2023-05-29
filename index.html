@@ -18,12 +18,41 @@
 
     <input type="button" class="btn" id="scissors" value="Scissors">
 
+    <div id="results">
+
+    </div>
+
 
 
 
     <script>
 
         const choices = ["rock", "paper", "scissors"];
+        let playerScoreCount = 0;
+        let computerScoreCount = 0;
+
+        //RESULTS TALLY DOM ELEMENTS
+        const resultContainer = document.getElementById('results');
+
+        const commentary = document.createElement('p');
+        
+        resultContainer.appendChild(commentary);
+
+        const playerScoreLabel = document.createElement('p');
+        let playerScore = document.createElement('span');
+        const computerScoreLabel = document.createElement('p');
+        let computerScore = document.createElement('span');
+        playerScoreLabel.textContent = "Player Score: ";
+        playerScore.textContent = playerScoreCount;
+        computerScoreLabel.textContent = "Computer Score: ";
+        computerScore.textContent = computerScoreCount;
+
+        resultContainer.appendChild(playerScoreLabel);
+        playerScoreLabel.appendChild(playerScore);
+        resultContainer.appendChild(computerScoreLabel);
+        computerScoreLabel.appendChild(computerScore);
+
+
 
         //BUTTONS ASSIGNED TO VARIABLES
         const rockBtn = document.getElementById('rock');
@@ -64,53 +93,44 @@
             let computerChoice = getComputerChoice();
 
             if (playerChoice === computerChoice) {
-                result = "Tie";
+                result = "It's a tie";
             } else if (playerChoice === "rock" && computerChoice === "scissors"
                         || playerChoice === "scissors" && computerChoice === "paper"
                         || playerChoice === "paper" && computerChoice === "rock") {
-                    result = "Win";
+                    result = "Player wins";
             } else {
-                result = "Lose";
+                result = "Computer wins";
             }
             
-            console.log(`You chose ${playerChoice} and the computer chose ${computerChoice}: ${result}!`);
-            return result;
+            commentary.textContent = `You chose ${playerChoice} and the computer chose ${computerChoice}: ${result}!`;
+            
+            return checkScore(result, playerChoice, computerChoice);
         }
 
-
-
-        //PLAYS FIVE ROUNDS
-        /* function playGame(playerSelection, computerSelection) {
-
-            let playerScore = 0;
-            let computerScore = 0;
-
-            for (i = 1; i <= 5; i++) {
-                const playerSelection = getPlayerChoice();
-
-                const computerSelection = getComputerChoice();
-
-               const result = playRound(playerSelection, computerSelection);
-
-                if (result === "Win") {
-                    playerScore++;
-                } else if (result === "Lose") {
-                    computerScore++;
-                }
-            }
-
-            if (playerScore === computerScore) {
-                alert(`You both scored ${playerScore}, it's a tie!`);
-            } else if (playerScore > computerScore) {
-                alert(`You scored ${playerScore}, the computer scored ${computerScore}. You win the game!`);
-            } else {
-                alert(`You scored ${playerScore}, the computer scored ${computerScore}. You lose the game...`);
-            }
+        //CHECKS THE RESULT OF THE LAST ROUND, ADJUSTS SCORE
+        //AND ANNOUNCES WINNER ONCE SCORE IS MORE THAN 4
+        function checkScore(result, playerChoice, computerChoice) {
+       
+        if (playerScoreCount < 4 && result === "Player wins") {
+            playerScoreCount++;
+            playerScore.textContent = playerScoreCount;
+        } else if (playerScoreCount === 4 && result === "Player wins") {
+            commentary.textContent = `You chose ${playerChoice}, the computer chose ${computerChoice}. You win the game!`
+            playerScoreCount = 0;
+            computerScoreCount = 0;
+            playerScore.textContent = playerScoreCount;
+            computerScore.textContent = computerScoreCount;
+        } else if (computerScoreCount < 4 && result === "Computer wins") {
+            computerScoreCount++;
+            computerScore.textContent = computerScoreCount;
+        } else if (computerScoreCount === 4 && result === "Computer wins") {
+            commentary.textContent = `You chose ${playerChoice}, the computer chose ${computerChoice}. The computer wins the game!`
+            playerScoreCount = 0;
+            computerScoreCount = 0;
+            playerScore.textContent = playerScoreCount;
+            computerScore.textContent = computerScoreCount;
         }
- */
-
-
-
+}
     </script>
 
 
